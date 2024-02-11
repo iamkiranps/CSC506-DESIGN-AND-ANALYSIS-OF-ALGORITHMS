@@ -49,47 +49,89 @@ class Node:
         self.data = data
         self.next = None
 
+class DoublyLinkedList:
+    """Doubly Linked List"""
+    def __init__(self):
+        self.head = None
+
+    def is_empty(self):
+        """Check if empty"""
+        return self.head is None
+
+    def append(self, data):
+        """Add data to the linked list"""
+        new_node = Node(data)
+        if self.is_empty():
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+            new_node.prev = current
+
+    def prepend(self, data):
+        """Add data to the back"""
+        new_node = Node(data)
+        if self.is_empty():
+            self.head = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+
+    def display_forward(self):
+        current = self.head
+        while current:
+            print(current.data, end=" ")
+            current = current.next
+        print()
+
+    def display_backward(self):
+        current = self.head
+        while current and current.next:
+            current = current.next
+        while current:
+            print(current.data, end=" ")
+            current = current.prev
+        print()
+
 class Queue:
     def __init__(self):
-        """Initilize the queue"""
-        self.front = None
-        self.rear = None
+        """Initialize Queue using linked list"""
+        self.queue = DoublyLinkedList()
 
     def is_empty(self):
         """Check if queue is empty"""
-        return self.front is None
+        return self.queue.is_empty()
 
     def enqueue(self, data):
-        """Add item to the queue. Update the front and rear positions"""
-        new_node = Node(data)
-        if self.is_empty():
-            self.front = new_node
-            self.rear = new_node
-        else:
-            self.rear.next = new_node
-            self.rear = new_node
+        """Add data to queue (linked list)"""
+        self.queue.append(data)
 
     def dequeue(self):
-        """Remove item from the front. Update fonr and rear positions"""
+        """Remove data from queue"""
         if self.is_empty():
-            raise IndexError("dequeue from empty queue")
-        data = self.front.data
-        if self.front == self.rear:
-            self.front = None
-            self.rear = None
+            print("Queue is empty")
+            return None
         else:
-            self.front = self.front.next
-        return data
+            removed_item = self.queue.head.data
+            self.queue.head = self.queue.head.next
+            if self.queue.head:
+                self.queue.head.prev = None
+            return removed_item
 
     def peek(self):
-        """Return the item in the front"""
+        """Find front of queue (head of the linked list)"""
         if self.is_empty():
-            raise IndexError("peek from empty queue")
-        return self.front.data
+            print("Queue is empty")
+            return None
+        else:
+            return self.queue.head.data
 
     def size(self):
-        """Return the count of items"""
-        current = self.front
+        """Check size of queue"""
+        current = self.queue.head
         count = 0
         while current:
             count += 1
@@ -120,7 +162,7 @@ if __name__ == "__main__":
     lst = []
     cols = ['Range', "Stack Push", "Stack Peek", "Stack Pop", "Queue Push", "Queue Peek", "Queue Pop"]
     
-    for i in range(1,10000,100):
+    for i in range(1,1000):
         random_list = [random.randint(1, i) for _ in range(i)]
 
         stack = Stack()
