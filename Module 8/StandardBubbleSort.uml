@@ -1,0 +1,20 @@
+@startuml
+
+title : Standard Bubble Sort
+
+start
+:Initialize n as length of arr;
+:Traverse through all elements in the array;
+repeat
+    :Set Last i elements are already in place;
+    repeat
+        :Traverse the array from 0 to n-i-1;
+        if (arr[j] > arr[j + 1]) then (yes)
+            :Swap arr[j] and arr[j + 1];
+        endif
+    repeat while (j < n - i - 1)
+repeat while (i < n)
+:Return sorted arr;
+stop
+
+@enduml

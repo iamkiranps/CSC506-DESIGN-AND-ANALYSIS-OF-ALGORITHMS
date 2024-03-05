@@ -1,0 +1,35 @@
+@startuml
+
+title : Modified Bubble Sort
+
+start
+:Initialize n as length of arr;
+:Set sorted_flag as True;
+repeat
+    :Set sorted_flag as False;
+    :Move "up" the list;
+    repeat
+        if (arr[i] > arr[i + 1]) then (yes)
+            :Swap arr[i] and arr[i + 1];
+            :Set sorted_flag as True;
+        endif
+    repeat while (i < n - 1)
+
+    if (sorted_flag is false) then (yes)
+        break
+    endif
+
+    :Set sorted_flag as False;
+    :Move "down" the list;
+    repeat
+        if (arr[i] < arr[i - 1]) then (yes)
+            :Swap arr[i] and arr[i - 1];
+            :Set sorted_flag as True;
+        endif
+    repeat while (i > 0)
+repeat while (sorted_flag is true)
+
+:Return sorted arr;
+stop
+
+@enduml
